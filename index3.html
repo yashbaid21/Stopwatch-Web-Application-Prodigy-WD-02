@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Countdown</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<div class="nav">
+    <a href="index.html">Stopwatch</a>
+    <a href="index2.html">Clock</a>
+    <a href="index3.html">Countdown</a>
+</div>
+<style>
+    body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+        font-family: Arial, sans-serif;
+        background-color: #f0f0f0;
+    }
+    .countdown {
+        text-align: center;
+    }
+    .countdown h1 {
+        font-size: 3rem;
+        margin-bottom: 10px;
+    }
+    .countdown p {
+        font-size: 1.5rem;
+        color: white;
+    }
+    #countdownDisplay{
+        color: red;
+    }
+</style>
+</head>
+<body>
+<div class="countdown">
+    <h1 id="countdownDisplay">00:00:00</h1>
+    <p>Countdown to <span id="countdownDate">December 31, 2024 23:59:59</span></p>
+</div>
+<script>
+    const countdownDisplay = document.getElementById('countdownDisplay');
+    const countdownDate = document.getElementById('countdownDate').textContent;
+
+    function updateCountdown() {
+        const currentDate = new Date();
+        const targetDate = new Date(countdownDate);
+        
+        const difference = targetDate - currentDate;
+
+        if (difference <= 0) {
+            clearInterval(interval);
+            countdownDisplay.textContent = '00:00:00';
+            return;
+        }
+
+        let hours = Math.floor(difference / (1000 * 60 * 60));
+        let minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+        let seconds = Math.floor((difference % (1000 * 60)) / 1000);
+
+        hours = hours < 10 ? '0' + hours : hours;
+        minutes = minutes < 10 ? '0' + minutes : minutes;
+        seconds = seconds < 10 ? '0' + seconds : seconds;
+
+        countdownDisplay.textContent = `${hours}:${minutes}:${seconds}`;
+    }
+
+    const interval = setInterval(updateCountdown, 1000);
+    updateCountdown();
+</script>
+<footer class="footer">
+    <p>&copy; 2024 Yash Baid - Web Developer.</p>
+</footer>
+</body>
+</html>

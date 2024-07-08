@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clock</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<div class="nav">
+    <a href="index.html">Stopwatch</a>
+    <a href="index2.html">Clock</a>
+    <a href="index3.html">Countdown</a>
+</div>
+<body>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            background-image: url("background.jpeg");
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+        .clock {
+            text-align: center;
+            background: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        #time {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+        #date, #day {
+            font-size: 1.5rem;
+            color: black;
+        }
+    </style>
+</head>
+<body>
+    <div class="clock">
+        <div id="time"></div>
+        <br>
+        <div id="date"></div>
+        <br>
+        <div id="day"></div>
+    </div>
+    <script>
+        function updateClock() {
+            const now = new Date();
+            const hours = now.getHours();
+            const minutes = now.getMinutes();
+            const seconds = now.getSeconds();
+            const ampm = hours >= 12 ? 'PM' : 'AM';
+
+            // Convert 24-hour format to 12-hour format
+            const hours12 = hours % 12 || 12;
+
+            const timeString = `${padZero(hours12)}:${padZero(minutes)}:${padZero(seconds)} ${ampm}`;
+            const dateString = now.toLocaleDateString();
+            const dayString = now.toLocaleDateString('en-US', { weekday: 'long' });
+
+            document.getElementById('time').textContent = timeString;
+            document.getElementById('date').textContent = dateString;
+            document.getElementById('day').textContent = dayString;
+        }
+
+        function padZero(number) {
+            return number < 10 ? '0' + number : number;
+        }
+
+        // Update the clock every second
+        setInterval(updateClock, 1000);
+
+        // Initialize the clock
+        updateClock();
+    </script>
+    <footer class="footer">
+        <p>&copy; 2024 Yash Baid - Web Developer.</p>
+    </footer>
+</body>
+</html>
